@@ -4,16 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Times New Roman', serif;
-      /* Đã loại bỏ background-image trái tim màu hồng */
-      background-color: #f5f5dc; /* Giữ màu nền be nhạt */
-      /* background-image: radial-gradient(#ffcccc 1px, transparent 1px); */
-      /* background-size: 20px 20px; */
+      /* Nền màu phẳng duy nhất, không hoa văn/ren */
+      background-color: #f5f5dc; 
       color: #333;
       text-align: center;
       padding-top: 10px;
@@ -22,19 +20,17 @@
       min-height: 100vh;
     }
 
-    /* --- Lớp ảnh rơi (Đã điều chỉnh để ảnh rõ nét hoàn toàn) --- */
+    /* --- Lớp ảnh rơi: ĐƯA XUỐNG DƯỚI NỀN (z-index: -1) VÀ LÀM RÕ NÉT (opacity: 1) --- */
     .falling-layer {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      /* background-image này là các trái tim nhỏ ở góc video, giữ lại */
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ffc0cb" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C15.09 3.81 16.76 3 18.5 3 21.58 3 24 5.42 24 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
-      background-repeat: repeat;
-      background-size: 80px 80px;
-      opacity: 0.1; /* Giữ opacity thấp cho nền hoa nhỏ này để không bị chói */
-      z-index: 5;
+      /* Loại bỏ hoàn toàn hình ảnh nền (trái tim/hoa nhỏ) */
+      background-image: none; 
+      /* Đưa ảnh xuống dưới nội dung (video, khung viền) */
+      z-index: -1; 
       pointer-events: none;
     }
 
@@ -73,7 +69,7 @@
     #photo4 { left: 35%; --x: -10px; --x-end: -30px; --r: 20deg; --r-end: 25deg; animation-duration: 34s; animation-delay: 15s; }
     #photo5 { left: 45%; --x: -25px; --x-end: -10px; --r: -25deg; --r-end: -20deg; animation-duration: 36s; animation-delay: 20s; }
 
-    /* --- Vùng chứa Video --- */
+    /* --- Vùng chứa Video (Không thay đổi) --- */
     .content-wrapper {
       position: relative;
       display: flex;
@@ -93,38 +89,20 @@
       margin-top: 15px;
       padding: 5px; 
       box-sizing: border-box;
-      border: 3px solid #c00000; /* Khung màu đỏ */
+      /* Khung viền đỏ giữ nguyên */
+      border: 3px solid #c00000; 
       border-radius: 20px;
       background-color: #fff;
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
     
+    /* Đã loại bỏ các hình ảnh trang trí hoa hồng và lá (leaf-top, leaf-bottom) để khung viền đỏ đơn giản hơn */
     .video-container::before,
     .video-container::after {
-      content: "🌹";
-      font-size: 30px;
-      position: absolute;
-      z-index: 20;
+      content: ""; /* Xóa nội dung trang trí hoa hồng */
     }
-    .video-container::before {
-      top: -10px;
-      left: -10px;
-    }
-    .video-container::after {
-      bottom: -10px;
-      right: -10px;
-    }
-    .leaf-top {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      font-size: 30px;
-    }
-    .leaf-bottom {
-      position: absolute;
-      bottom: -10px;
-      left: -10px;
-      font-size: 30px;
+    .leaf-top, .leaf-bottom {
+      display: none; /* Ẩn các lá cây */
     }
 
     video {
@@ -160,3 +138,4 @@
 
 </body>
 </html>
+  
