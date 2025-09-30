@@ -4,26 +4,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title> <style>
+
+  <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Times New Roman', serif;
-      background-color: #ffeef2;
       background-color: #f5f5dc;
       background-image: radial-gradient(#ffcccc 1px, transparent 1px);
       background-size: 20px 20px;
       color: #333;
       text-align: center;
-      padding-top: 50px;
-      overflow: hidden;
+      padding-top: 20px; /* Giảm padding-top để đẩy nội dung lên sát hơn */
+      overflow-x: hidden;
       position: relative;
       min-height: 100vh;
     }
 
-    /* Đã xoá khối body::before { content: ''; } */
-
-    /* Lớp ảnh rơi nằm giữa nền và nội dung */
+    /* --- Lớp ảnh rơi (Đã gỡ bỏ hiệu ứng mờ) --- */
     .falling-layer {
       position: absolute;
       top: 0;
@@ -34,10 +32,10 @@
       background-repeat: repeat;
       background-size: 80px 80px;
       opacity: 0.1;
-      z-index: -1;
       z-index: 5;
       pointer-events: none;
     }
+
     .falling-photo {
       position: absolute;
       width: 180px;
@@ -47,7 +45,9 @@
       animation: fall linear infinite;
       animation-fill-mode: forwards;
       opacity: 0;
+      filter: blur(0px) !important; /* Đảm bảo hình ảnh rõ nét */
     }
+
     @keyframes fall {
       0% {
         transform: translateY(-100%) translateX(var(--x)) rotate(var(--r));
@@ -64,12 +64,14 @@
         opacity: 0;
       }
     }
-    /* Chỉ rơi bên trái: left từ 0% đến 45% */
+    
     #photo1 { left: 5%; --x: 0px; --x-end: 20px; --r: 10deg; --r-end: 30deg; animation-duration: 28s; animation-delay: 0s; }
     #photo2 { left: 15%; --x: -20px; --x-end: -10px; --r: -15deg; --r-end: 10deg; animation-duration: 30s; animation-delay: 5s; }
     #photo3 { left: 25%; --x: 15px; --x-end: 25px; --r: 5deg; --r-end: -5deg; animation-duration: 32s; animation-delay: 10s; }
     #photo4 { left: 35%; --x: -10px; --x-end: -30px; --r: 20deg; --r-end: 25deg; animation-duration: 34s; animation-delay: 15s; }
     #photo5 { left: 45%; --x: -25px; --x-end: -10px; --r: -25deg; --r-end: -20deg; animation-duration: 36s; animation-delay: 20s; }
+
+    /* --- Vùng chứa Video 2 (Đã điều chỉnh lên đầu) --- */
     .content-wrapper {
       position: relative;
       display: flex;
@@ -77,16 +79,15 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
+      padding-top: 0; /* Đẩy sát lên đầu */
       text-align: center;
       z-index: 10;
     }
 
-    /* Đã xoá khối h1 CSS */
-    
     .video-container {
       position: relative;
-      width: 100%;
-      max-width: 100%;
+      width: 90%; /* Điều chỉnh để nó trông đẹp hơn trên mobile/desktop */
+      max-width: 900px; 
       margin-top: 15px;
       padding: 12px;
       box-sizing: border-box;
@@ -95,8 +96,6 @@
       background-color: #fff;
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
-
-    /* Đã xoá khối p CSS */
     
     .video-container::before,
     .video-container::after {
@@ -127,22 +126,19 @@
     }
 
     video {
+      /* Đảm bảo video lấp đầy toàn bộ không gian chứa nó */
+      width: 100%; 
+      height: auto;
+      display: block;
+      
       border: 5px solid #ff80ab;
       border-radius: 15px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      max-width: 90%;
-      height: auto;
-      width: 100%;
-      border-radius: 10px;
-      display: block;
     }
   </style>
 </head>
 <body>
-  <video controls>
-    <source src="MWD chú rể.mp4" type="video/mp4">
-    Trình duyệt của bạn không hỗ trợ thẻ video.
-  </video>
+  
   <div class="falling-layer">
     <img src="anh2.jpg" alt="Ảnh 2" class="falling-photo" id="photo1">
     <img src="anh3.jpg" alt="Ảnh 3" class="falling-photo" id="photo2">
@@ -150,6 +146,7 @@
     <img src="anh18.jpg" alt="Ảnh 18" class="falling-photo" id="photo4">
     <img src="anh24.jpg" alt="Ảnh 24" class="falling-photo" id="photo5">
   </div>
+
   <div class="content-wrapper">
     <div class="video-container">
       <span class="leaf-top">🌿</span>
@@ -160,5 +157,6 @@
       </video>
     </div>
   </div>
+
 </body>
 </html>
